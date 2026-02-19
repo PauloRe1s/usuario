@@ -12,12 +12,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Table(name = "tb_usuario")
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
+@Entity
+@Table(name = "tb_usuario")
 public class Usuario implements UserDetails {
 
     @Id
@@ -33,16 +34,13 @@ public class Usuario implements UserDetails {
     @Column(name = "senha")
     private String senha;
 
-    @Column(name = "idade", length = 100)
-    private Long idade;
-
     @OneToMany(cascade = CascadeType.ALL) // Quando deletar o usuaario os dados a ele também são apagados.
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private List<Endereco> enderecoEntity;
+    private List<Endereco> enderecos;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "telefone_id", referencedColumnName = "id")
-    private List<Telefone> telefoneEntity;
+    private List<Telefone> telefones;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
